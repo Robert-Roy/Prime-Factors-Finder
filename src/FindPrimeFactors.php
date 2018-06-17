@@ -21,32 +21,27 @@ class FindPrimeFactors extends Command {
             $output->writeln("<error>Input is not an integer. Please enter an integer</error>");
             exit(1);
         }
-        $factorArray = $this->findFactors([$inputNumber], $output);
+        $factorArray = $this->findFactors([$inputNumber]);
         $output->writeln("<info>{$this->arrayToString($factorArray)}</info>");
-        //$output->writeln("<info>$factorArray</info>");
     }
 
-    private function findFactors($inputNumbers, $output) {
+    private function findFactors($inputNumbers) {
         $outputNumbers = $inputNumbers;
         for ($a = 0; $a < count($outputNumbers); $a++) {
             for ($i = 2; $i < $outputNumbers[$a]; $i++) {
                 if (($outputNumbers[$a] % $i) === 0 && $outputNumbers[$a] !== $i) {
                     // cut $a value from array, push $input[$a] and $input[$a]/$i
                     $factorA = $outputNumbers[$a] / $i;
-                    $factorB = $i;
-                    //useful lines for debugging
-                    //$output->writeln("<info>Current array is: {$this->arrayToString($inputNumbers)}</info>");
-                    //$output->writeln("<info>Removing {$outputNumbers[$a]}"
-                    //. " and replacing it with {$factorA} and {$factorB}</info>");
-                    array_splice($outputNumbers, $a, 1);
+                    $factorB = $i;array_splice($outputNumbers, $a, 1);
                     $a++;
                     array_push($outputNumbers, $factorA, $factorB);
                 }
             }
         }
         if($inputNumbers !== $outputNumbers){
-            return $this->findFactors($outputNumbers, $output);
+            return $this->findFactors($outputNumbers);
         }
+        asort($outputNumbers);
         return $outputNumbers;
     }
     
@@ -56,9 +51,13 @@ class FindPrimeFactors extends Command {
             return $outputString;
         }
         for($i = 0; $i < count($inputArray); $i++){
-            $outputString = $outputString . ", " . $inputArray[$i];
+            $appendString = ", ";
+            if($i === (count($inputArray) - 1)){
+                $appendString = ", and ";
+            }
+            $outputString = $outputString . $appendString . $inputArray[$i];
         }
-        $outputString = trim($outputString, ", ");
+        $outputString = trim($outputString, ", and");
         return $outputString;
     }
 
