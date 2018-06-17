@@ -23,7 +23,7 @@ class FindPrimeFactors extends Command {
             exit(1);
         }
         $factorArray = $this->findFactors($inputNumber);
-        if($inputNumber === $factorArray[0]){
+        if ($inputNumber === $factorArray[0]) {
             return $output->writeln("<info>{$inputNumber} is prime.</info>");
         }
         $output->writeln("<info>The prime factors of {$inputNumber} are {$this->arrayToString($factorArray)}</info>");
@@ -31,34 +31,32 @@ class FindPrimeFactors extends Command {
 
     private function findFactors($inputNumber) {
         $outputNumbers = [$inputNumber];
-        for ($a = count($outputNumbers) - 1; $a >= 0; $a--) {
-            //echo "Checking " . $outputNumbers[$a] . "\n"; //useful line for debugging
-            //start trying to divide number by everything over 1 that hasn't already been checked
-            for ($i = 2; $i <= $outputNumbers[$a] / $i; $i++) {
-                echo "Checking " . $outputNumbers[$a] . " against " . $i . ".\n";
-                // if number is divisible by tested number, and not equal to the tested number
-                if (($outputNumbers[$a] % $i) === 0 && $outputNumbers[$a] !== $i) {
-                    // cut $a value from array, push $i and $input[$a]/$i
-                    $outputNumbers[$a] = $outputNumbers[$a] / $i;
-                    $factorB = $i;
-                    array_push($outputNumbers, $factorB);
-                    // recheck the same number
-                    $i--;
-                }
+        //echo "Checking " . $outputNumbers[$a] . "\n"; //useful line for debugging
+        //start trying to divide number by everything over 1 that hasn't already been checked
+        for ($i = 2; $i <= $outputNumbers[$a] / $i; $i++) {
+            echo "Checking " . $outputNumbers[$a] . " against " . $i . ".\n";
+            // if number is divisible by tested number, and not equal to the tested number
+            if (($outputNumbers[$a] % $i) === 0 && $outputNumbers[$a] !== $i) {
+                // cut $a value from array, push $i and $input[$a]/$i
+                $outputNumbers[$a] = $outputNumbers[$a] / $i;
+                $factorB = $i;
+                array_push($outputNumbers, $factorB);
+                // recheck the same number
+                $i--;
             }
         }
         sort($outputNumbers);
         return $outputNumbers;
     }
-    
-    private function arrayToString($inputArray){
+
+    private function arrayToString($inputArray) {
         $outputString = "";
-        if(count($inputArray) === 0){
+        if (count($inputArray) === 0) {
             return $outputString;
         }
-        for($i = 0; $i < count($inputArray); $i++){
+        for ($i = 0; $i < count($inputArray); $i++) {
             $appendString = ", ";
-            if($i === (count($inputArray) - 1)){
+            if ($i === (count($inputArray) - 1)) {
                 $appendString = ", and ";
             }
             $outputString = $outputString . $appendString . $inputArray[$i];
