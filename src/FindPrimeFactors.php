@@ -46,7 +46,7 @@ class FindPrimeFactors extends Command {
         if($inputNumbers !== $outputNumbers){
             return $this->findFactors($outputNumbers);
         }
-        asort($factorArray);
+        sort($outputNumbers);
         return $outputNumbers;
     }
     
