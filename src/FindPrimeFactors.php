@@ -34,7 +34,7 @@ class FindPrimeFactors extends Command {
         //echo "Checking " . $outputNumbers[$a] . "\n"; //useful line for debugging
         //start trying to divide number by everything over 1 that hasn't already been checked
         for ($i = 2; $i <= $outputNumbers[0] / $i; $i++) {
-            echo "Checking " . $outputNumbers[0] . " against " . $i . ".\n";
+            //echo "Checking " . $outputNumbers[0] . " against " . $i . ".\n";
             // if number is divisible by tested number,
             if (($outputNumbers[0] % $i) === 0) {
                 // Reduce value from $outputNumbers[0] to $outputNumbers[0]/$i, push $i
