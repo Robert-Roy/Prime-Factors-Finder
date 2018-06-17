@@ -22,29 +22,30 @@ class FindPrimeFactors extends Command {
             $output->writeln("<error>Input is not an integer. Please enter an integer</error>");
             exit(1);
         }
-        $factorArray = $this->findFactors([$inputNumber]);
+        $factorArray = $this->findFactors($inputNumber);
+        if($inputNumber === $factorArray[0]){
+            return $output->writeln("<info>{$inputNumber} is prime.</info>");
+        }
         $output->writeln("<info>The prime factors of {$inputNumber} are {$this->arrayToString($factorArray)}</info>");
     }
 
-    private function findFactors($inputNumbers) {
-        $outputNumbers = $inputNumbers;
-        for ($a = 0; $a < count($outputNumbers); $a++) {
-            //start trying to devide number by everything less than it except 1
-            for ($i = 2; $i < $outputNumbers[$a]; $i++) {
+    private function findFactors($inputNumber) {
+        $outputNumbers = [$inputNumber];
+        for ($a = count($outputNumbers) - 1; $a >= 0; $a--) {
+            //echo "Checking " . $outputNumbers[$a] . "\n"; //useful line for debugging
+            //start trying to divide number by everything over 1 that hasn't already been checked
+            for ($i = 2; $i <= $outputNumbers[$a] / $i; $i++) {
+                echo "Checking " . $outputNumbers[$a] . " against " . $i . ".\n";
                 // if number is divisible by tested number, and not equal to the tested number
                 if (($outputNumbers[$a] % $i) === 0 && $outputNumbers[$a] !== $i) {
                     // cut $a value from array, push $i and $input[$a]/$i
-                    $factorA = $outputNumbers[$a] / $i;
+                    $outputNumbers[$a] = $outputNumbers[$a] / $i;
                     $factorB = $i;
-                    array_splice($outputNumbers, $a, 1);
-                    array_push($outputNumbers, $factorA, $factorB);
-                    // increase index of $a by one to compensate for incrased array length
-                    $a++;
+                    array_push($outputNumbers, $factorB);
+                    // recheck the same number
+                    $i--;
                 }
             }
-        }
-        if($inputNumbers !== $outputNumbers){
-            return $this->findFactors($outputNumbers);
         }
         sort($outputNumbers);
         return $outputNumbers;
