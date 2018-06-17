@@ -33,15 +33,14 @@ class FindPrimeFactors extends Command {
         $outputNumbers = [$inputNumber];
         //echo "Checking " . $outputNumbers[$a] . "\n"; //useful line for debugging
         //start trying to divide number by everything over 1 that hasn't already been checked
-        for ($i = 2; $i <= $outputNumbers[$a] / $i; $i++) {
-            echo "Checking " . $outputNumbers[$a] . " against " . $i . ".\n";
-            // if number is divisible by tested number, and not equal to the tested number
-            if (($outputNumbers[$a] % $i) === 0 && $outputNumbers[$a] !== $i) {
-                // cut $a value from array, push $i and $input[$a]/$i
-                $outputNumbers[$a] = $outputNumbers[$a] / $i;
-                $factorB = $i;
-                array_push($outputNumbers, $factorB);
-                // recheck the same number
+        for ($i = 2; $i <= $outputNumbers[0] / $i; $i++) {
+            echo "Checking " . $outputNumbers[0] . " against " . $i . ".\n";
+            // if number is divisible by tested number,
+            if (($outputNumbers[0] % $i) === 0) {
+                // Reduce value from $outputNumbers[0] to $outputNumbers[0]/$i, push $i
+                $outputNumbers[0] = $outputNumbers[0] / $i;
+                array_push($outputNumbers, $factorB, $i);
+                // then recheck the same number
                 $i--;
             }
         }
