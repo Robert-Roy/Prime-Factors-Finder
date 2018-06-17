@@ -39,7 +39,7 @@ class FindPrimeFactors extends Command {
             if (($outputNumbers[0] % $i) === 0) {
                 // Reduce value from $outputNumbers[0] to $outputNumbers[0]/$i, push $i
                 $outputNumbers[0] = $outputNumbers[0] / $i;
-                array_push($outputNumbers, $factorB, $i);
+                array_push($outputNumbers, $i);
                 // then recheck the same number
                 $i--;
             }
