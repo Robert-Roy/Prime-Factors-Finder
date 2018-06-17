@@ -22,7 +22,7 @@ class FindPrimeFactors extends Command {
             exit(1);
         }
         $factorArray = $this->findFactors([$inputNumber]);
-        $output->writeln("<info>{$this->arrayToString($factorArray)}</info>");
+        $output->writeln("<info>The prime factors of {$inputNumber} are {$this->arrayToString($factorArray)}</info>");
     }
 
     private function findFactors($inputNumbers) {
